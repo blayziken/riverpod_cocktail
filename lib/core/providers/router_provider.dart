@@ -31,17 +31,28 @@ class RouterNotifier extends ChangeNotifier {
   String? _redirectLogic(GoRouterState state) {
     final loginState = _ref.read(loginControllerProvider);
 
-    final isLoggedIn = state.location == '/login';
+    final loggedIn = loginState == LoginStateSuccess();
+    final loggingIn = state.location == '/accepted';
 
-    // if (loginState == LoginStateInitial) {
-    //   return '/login';
+    // if (!loggedIn) return loggingIn ? null : '/';
+
+    if (loggingIn) return null;
+    if (loggedIn) return '/accepted';
+
+    final signOut = loginState == SignOutClicked();
+    if (signOut) return '/';
+
+    // final isLoggedIn = state.location == '/accepted';
+
+    // // if (loginState == LoginStateInitial) {
+    // //   return '/login';
+    // // }
+
+    // if (loginState == LoginStateSuccess()) {
+    //   return '/accepted';
     // }
 
-    if (loginState == LoginStateSuccess) {
-      return '/accepted';
-    }
-
-    // if (isLoggedIn) return '/accepted';
+    // if (isLoggedIn) return null;
 
     return null;
   }
