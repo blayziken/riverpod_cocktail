@@ -40,26 +40,6 @@ class EntryPage extends ConsumerWidget {
                       _usernameController.text,
                       _passwordController.text,
                     );
-
-                // ref.watch(loginProvider).when(
-                //   data: (data) {
-                //     print('------------------++++++------------');
-                //     print(data);
-                //     print('------------------++++++------------');
-                //     return Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => Accepted(),
-                //       ),
-                //     );
-                //   },
-                //   loading: () {
-                //     print('loading');
-                //   },
-                //   error: (err, stack) {
-                //     print('ERROR: $err');
-                //   },
-                // );
               },
             ),
           ],
@@ -77,8 +57,20 @@ class Accepted extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.purple),
       body: Container(
-        color: Colors.brown,
-      ),
+          width: double.infinity,
+          color: Colors.brown,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomTextButton(
+                child: BOLDTEXT(text: 'Log Out', color: Colors.white),
+                onPressed: () {
+                  ref.read(loginControllerProvider.notifier).signOut();
+                },
+              ),
+            ],
+          )),
     );
   }
 }
